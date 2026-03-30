@@ -1,7 +1,7 @@
 import "./buttons.css";
 
 // Destructoring
-export default function Button( {color, children} ) {
+export default function Button( {color, children, onClick= ()=>{}} ) {
   const getColorClass = () => {
     switch (color) {
       case "primary":
@@ -15,5 +15,5 @@ export default function Button( {color, children} ) {
     }
   };
 
-  return <button className={getColorClass()}>{children}</button>;
+  return <button onClick={onClick} className={getColorClass()}>{children}</button>;
 }
