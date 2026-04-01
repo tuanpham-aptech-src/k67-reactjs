@@ -47,6 +47,12 @@
     border-radius: 6px;
     padding: 8px 12px;
 }
+.todo-item.finished-todo{
+    border-color: #22c55e;
+}
+.todo-item.cancelled-todo{
+    border-color: #7d1a1a;
+}
 .todo-btns{
     margin-left: auto;
     font-size: 14px;
