@@ -1,64 +1,49 @@
-import { Button } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const MenuNav = {
-  textDecoration: "none",
-  color: "#222222",
-  padding: "4px 12px",
-};
-
-function Header({ currentUser, handleLogout }) {
-  const navigate = useNavigate();
-
-  const links = [
-    {
-      path: "/",
-      content: "Trang chủ",
-    },
-    {
-      path: "/about",
-      content: "Về chúng tôi",
-    },
-    {
-      path: "/products",
-      content: "Sản phẩm",
-    },
-  ];
-
+export default function Header({currentUser}) {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            {links.map((link) => (
-              <Link key={link.content} to={link.path} style={MenuNav}>
-                {link.content}{" "}
+    <nav className="navbar navbar-expand-lg bg-primary">
+      <div className="container-fluid text-white">
+        <a className="navbar-brand text-white" href="#">
+          Easy-User
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav w-100 ">
+            <li className="nav-item">
+              <Link className="nav-link text-white active" aria-current="page" to={"/"}>
+                Người dùng
               </Link>
-            ))}
-
-            {currentUser ? (
-              <NavDropdown
-                title={`Xin chào, ${currentUser.name}`}
-                id="basic-nav-dropdown"
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link text-white active"
+                aria-current="page"
+                to={"/users/add"}
               >
-                <NavDropdown.Item onClick={handleLogout}>
-                  Đăng xuất
-                </NavDropdown.Item>
-              </NavDropdown>
-            ) : (
-              <Button onClick={() => navigate("/login")}>Đăng nhập</Button>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+                Thêm người dùng
+              </Link>
+            </li>
+
+            <li className="nav-item ms-auto d-flex align-items-center">
+              <span>Xin chào, Tuấn </span>
+              <button type="button" className="btn btn-danger ms-2">
+                Đăng xuất
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 }
-
-export default Header;

@@ -1,16 +1,60 @@
-# React + Vite
+### Project
+Easy user là một dự án cá nhân siêu nhỏ, mục đích dùng để học cơ bản về ReactJS bao gồm:
+- State
+- Props
+- Router (sử dụng react-router-dom)
+Dự án này sẽ cho phép chúng ta CRUD với users[].
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Techstack:
+- FE lib: react, react-dom
+- UI fw: bootstrap (CDN hoặc install đều được).
+- Router: react-router-dom
 
-Currently, two official plugins are available:
+### Các bước thực hiện:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# Bước 1: Cài đặt UI fw
+- Cách 1: dùng CDN vào index.html
+- Cách 2: cài qua npm: `npm install bootstrap` => `import 'bootstrap/dist/css/bootstrap.min.css';` vào file main.jsx
 
-## React Compiler
+# Bước 2: Cài react-router-dom
+ Cài đặt package (v7) và init provider
+- `npm i react-router-dom`
+- Init provider `<BrowserRouter/>` wrap lấy `<App/>`
+```jsx
+// main.jsx
+import { BrowserRouter } from 'react-router-dom';
+createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+) 
+```
+- Sử dụng `<Routes>` và `<Route>` để tạo các route
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Bước 3: Tạo ra các page components
+Ở bước này, chúng ta sẽ tạo ra các page components và map với router. Sau đó, mới tiếp tục tạo layout và phân cho các page components ứng với logic yêu cầu.
+- Tạo thư mục `src/pages` để tổ chức các page components.
+- Tạo thư mục `src/layouts` để tổ chức layout components. Gồm `ProtectedRoutes`
+- Bắt đầu tạo layout chung. Tạo các components, ví dụ: `src/components/Header.jsx` ....
 
-## Expanding the ESLint configuration
+# Bước 4: setup ProtectedRoutes layout
+Chúng ta sẽ nhận vào một prop `isLogged` là boolean-flag để xem người dùng đã đăng nhập chưa
+- ✔️: Đã đăng nhập thì return ra match-route bằng `<Outlet/>`
+- ❌: Chưa đăng nhập thì navigate user về trang login bằng `<Navigate to="/login">` của `react-router-dom`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+# Bước 5: xử lý phần hiển thị danh sách users
+Danh sách users sẽ được đặt tại `App.jsx` vì chúng ta dùng component này làm root. Trong thực tế sẽ nên đặt vào store thay vì đặt làm state như hiện tại (Props Drilling)
+- `users[]` là mảng user với cấu trúc
+```jsx
+{
+    id: int
+    name: string,
+    email: string,
+    phone: string,
+    role: string,
+}
+```
+- render danh users tại `<UserList />` bằng props truyền từ `App.jsx`
+
+# Bước 6: xử lý các thao tác còn lại với người dùng.
