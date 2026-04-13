@@ -1,4 +1,15 @@
-function UserRow({ user }) {
+import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+
+
+function UserRow({ user, removeUser, navigate }) {
+  // dùng ref để lấy button close modal
+  const closeBtn = useRef(null)
+  const handleRemoveUser = ()=>{
+    closeBtn.current.click()
+    removeUser(user.id)
+  }
+
   return (
     <tr>
       <th scope="row">{user.id}</th>
@@ -8,7 +19,7 @@ function UserRow({ user }) {
       <td>{user.role}</td>
       <td>
         <div className="d-flex" style={{ gap: "8px" }}>
-          <button type="button" className="btn btn-outline-primary btn-sm">
+          <button type="button" className="btn btn-outline-primary btn-sm" onClick={()=>{navigate(`/users/${user.id}`)}}>
             Xem
           </button>
           <button type="button" className="btn btn-warning btn-sm">
@@ -49,14 +60,15 @@ function UserRow({ user }) {
                 </div>
                 <div className="modal-footer">
                   <button
+                    ref={closeBtn}
                     type="button"
                     className="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
-                    Close
+                    Đóng
                   </button>
-                  <button type="button" className="btn btn-primary">
-                    Save changes
+                  <button type="button" className="btn btn-primary" onClick={handleRemoveUser}>
+                    Xóa
                   </button>
                 </div>
               </div>
@@ -68,7 +80,9 @@ function UserRow({ user }) {
   );
 }
 
-export default function UserList({ users }) {
+export default function UserList({ users, removeUser }) {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="d-flex align-items-center justify-content-between">
@@ -76,7 +90,7 @@ export default function UserList({ users }) {
           <h3 className="mb-0 fs-4">Quản lý người dùng</h3>
           <small>Tổng cộng: 4 người dùng</small>
         </div>
-        <button type="button" className="btn btn-primary btn-sm">
+        <button onClick={()=> navigate('/users/add') } type="button" className="btn btn-primary btn-sm">
           + Thêm người dùng
         </button>
       </div>
@@ -126,7 +140,7 @@ export default function UserList({ users }) {
           </thead>
           <tbody>
             {users.map((user) => (
-              <UserRow key={user.id} user={user} />
+              <UserRow key={user.id} user={user} removeUser={removeUser} navigate={navigate} />
             ))}
           </tbody>
         </table>

@@ -58,4 +58,17 @@ Danh sách users sẽ được đặt tại `App.jsx` vì chúng ta dùng compon
 - render danh users tại `<UserList />` bằng props truyền từ `App.jsx`
 
 ## Bước 6: xử lý các thao tác còn lại với người dùng.
-To be continue....
+
+### 6.1 Thêm người dùng - Create
+- Tạo form từ fw UI.
+- Tạo state & xử lý dữ liệu
+- Xử lý after effect (navigate, clear form ....).
+
+### 6.2 Xóa người dùng - Delete
+
+Tạo hàm removeUser (Tại nơi chứa state users) -> truyền vào list và dùng
+
+### 6.3 Xem chi tiết người dùng - Read
+- Khai báo tên của params qua path ở Route
+- sử dụng useParams để lấy param từ dynamic route
+- Tạo hàm getUserById để lấy thông tin người dùng qua id

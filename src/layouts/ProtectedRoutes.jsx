@@ -8,7 +8,7 @@ export default function ProtectedRoutes({ isLogged }) {
   return (
     <>
       <Header />
-      <div className="container py-4">
+      <div className="container py-4" >
         <Outlet />
       </div>
     </>
